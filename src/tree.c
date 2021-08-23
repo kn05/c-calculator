@@ -29,7 +29,7 @@ struct node* make_tree(struct expression e, struct node* p, int is_left) {
     return t;
 }
 
-int _print_t(struct node* tree, int is_left, int offset, int depth, char s[20][255]) {
+int _print_tree(struct node* tree, int is_left, int offset, int depth, char s[20][255]) {
     if (!tree) return 0;
 
     int width = strlen(tree->text);  // 11
@@ -56,7 +56,7 @@ int _print_t(struct node* tree, int is_left, int offset, int depth, char s[20][2
     return left + width + right;
 }
 
-void print_t(struct node* tree) {
+void print_tree(struct node* tree) {
     char s[20][255];
     for (int i = 0; i < 20; i++) sprintf(s[i], "%100s", " ");
 

@@ -19,9 +19,9 @@ struct node {
 struct node* make_tree(struct expression e, struct node* p, int is_left);
 
 // https://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
-int _print_t(struct node* tree, int is_left, int offset, int depth, char s[20][255]);
+int _print_tree(struct node* tree, int is_left, int offset, int depth, char s[20][255]);
 
 // https://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
-void print_t(struct node* tree);
+void print_tree(struct node* tree);
 
 #endif
