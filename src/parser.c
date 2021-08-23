@@ -3,49 +3,32 @@
 int operator_precedence(enum operator_kind op) {
     switch (op) {
         case unary_add:
-            return 0;
-            break;
         case unary_sub:
             return 0;
-            break;
-        case mult:
-            return 1;
-            break;
-        case divi:
-            return 1;
-            break;
         case add:
-            return 2;
-            break;
         case sub:
             return 2;
-            break;
+        case mult:
+        case divi:
+            return 1;
+
         default:
             printf("[Error] unknown operator (function: operator_precedence) \n");
             return -1;
     }
 }
 
-int binary(enum operator_kind op) {
+int is_binary(enum operator_kind op) {
     switch (op) {
         case unary_add:
-            return 0;
-            break;
         case unary_sub:
             return 0;
-            break;
+        case add:
+        case sub:
         case mult:
-            return 1;
-            break;
         case divi:
             return 1;
-            break;
-        case add:
-            return 1;
-            break;
-        case sub:
-            return 1;
-            break;
+
         default:
             return -1;
     }
@@ -136,7 +119,7 @@ struct expression parser(char* str, size_t size) {
 
         qsort(operators, operator_num, sizeof(struct operator_array), compare);
 
-        if (binary(operators[0].op)) {
+        if (is_binary(operators[0].op)) {
             printf("\n>> parse to : %.*s | %.*s\n", operators[0].pos, str, size - operators[0].pos - 1,
                    str + operators[0].pos + 1);
             e.holder = malloc(sizeof(size_t) + 2 * sizeof(struct expression) + 1);
@@ -158,19 +141,20 @@ struct expression parser(char* str, size_t size) {
             case unary_sub:
                 e.holder->operator_function = operator_unary_sub;
                 break;
-            case mult:
-                e.holder->operator_function = operator_multiply;
-                break;
-            case divi:
-                e.holder->operator_function = operator_div;
-                break;
             case add:
                 e.holder->operator_function = operator_add;
+                break;
+            case mult:
+                e.holder->operator_function = operator_multiply;
                 break;
             case sub:
                 e.holder->operator_function = operator_sub;
                 break;
+            case divi:
+                e.holder->operator_function = operator_div;
+                break;
             default:
+                e.holder->operator_function = NULL;
                 break;
         }
         return e;
