@@ -15,8 +15,11 @@ struct node {
     struct node* right;
     char text[20];
 };
+
 struct node* make_tree(struct expression e, struct node* p, int is_left);
+
 int _print_t(struct node* tree, int is_left, int offset, int depth, char s[20][255]);
+
 void print_t(struct node* tree);
 
 #endif

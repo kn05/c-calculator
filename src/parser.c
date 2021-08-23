@@ -21,7 +21,7 @@ int operator_precedence(enum operator_kind op) {
             return 2;
             break;
         default:
-            printf("연산자 이상한게 들어옴\n");
+            printf("[Error] unknown operator (function: operator_precedence) \n");
             return -1;
     }
 }

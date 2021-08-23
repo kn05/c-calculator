@@ -19,12 +19,10 @@ struct node* make_tree(struct expression e, struct node* p, int is_left) {
         t->right = NULL;
     } else if (e.holder->operand_count == 2) {
         sprintf(t->text, "[%s]", operator_name(e.holder->operator_function));
-        // sprintf(t->text, "(%*s)", textlength, operator_name(e.holder->operator_function));
         t->left = make_tree(e.holder->expression_arrays[0], t, 1);
         t->right = make_tree(e.holder->expression_arrays[1], t, 0);
     } else if (e.holder->operand_count == 1) {
         sprintf(t->text, "[%s]", operator_name(e.holder->operator_function));
-        // sprintf(t->text, "(%*s)", textlength, operator_name(e.holder->operator_function));
         t->left = make_tree(e.holder->expression_arrays[0], t, 1);
         t->right = NULL;
     }

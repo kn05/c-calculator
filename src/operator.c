@@ -1,61 +1,68 @@
 #include "operator.h"
 
-double operator_multiply(struct expression* e) {
-    double result = 0;
-
-    struct expression_holder* exp = e->holder;
-
-    result = evaluate_expression(&exp->expression_arrays[0]) * evaluate_expression(&exp->expression_arrays[1]);
-
-    free(e->holder);
-    return result;
-}
-double operator_add(struct expression* e) {
-    double result = 0;
-
-    struct expression_holder* exp = e->holder;
-
-    result = evaluate_expression(&exp->expression_arrays[0]) + evaluate_expression(&exp->expression_arrays[1]);
-    free(e->holder);
-    return result;
-}
-double operator_div(struct expression* e) {
-    double result = 0;
-
-    struct expression_holder* exp = e->holder;
-
-    result = evaluate_expression(&exp->expression_arrays[0]) / evaluate_expression(&exp->expression_arrays[1]);
-
-    free(e->holder);
-    return result;
-}
-double operator_sub(struct expression* e) {
-    double result = 0;
-
-    struct expression_holder* exp = e->holder;
-
-    result = evaluate_expression(&exp->expression_arrays[0]) - evaluate_expression(&exp->expression_arrays[1]);
-    free(e->holder);
-    return result;
-}
 double operator_unary_add(struct expression* e) {
     double result = 0;
 
-    struct expression_holder* exp = e->holder;
+    struct expression_holder* hold = e->holder;
 
-    result = evaluate_expression(&exp->expression_arrays[0]);
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]);
 
-    free(e->holder);
     return result;
 }
+
 double operator_unary_sub(struct expression* e) {
     double result = 0;
 
-    struct expression_holder* exp = e->holder;
+    struct expression_holder* hold = e->holder;
 
-    result = evaluate_expression(&exp->expression_arrays[0]) * (-1);
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]) * (-1);
 
-    free(e->holder);
+    return result;
+}
+
+double operator_add(struct expression* e) {
+    double result = 0;
+
+    struct expression_holder* hold = e->holder;
+
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]) + evaluate_expression(&hold->expression_arrays[1]);
+
+    return result;
+}
+
+double operator_sub(struct expression* e) {
+    double result = 0;
+
+    struct expression_holder* hold = e->holder;
+
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]) - evaluate_expression(&hold->expression_arrays[1]);
+
+    return result;
+}
+
+double operator_multiply(struct expression* e) {
+    double result = 0;
+
+    struct expression_holder* hold = e->holder;
+
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]) * evaluate_expression(&hold->expression_arrays[1]);
+
+    return result;
+}
+
+double operator_div(struct expression* e) {
+    double result = 0;
+
+    struct expression_holder* hold = e->holder;
+
+    e->is_value = 1;
+    result = evaluate_expression(&hold->expression_arrays[0]) / evaluate_expression(&hold->expression_arrays[1]);
+
     return result;
 }
 
