@@ -38,7 +38,7 @@ double operator_sub(struct expression* e) {
     free(e->holder);
     return result;
 }
-double operator_unbinary_add(struct expression* e) {
+double operator_unary_add(struct expression* e) {
     double result = 0;
 
     struct expression_holder* exp = e->holder;
@@ -48,7 +48,7 @@ double operator_unbinary_add(struct expression* e) {
     free(e->holder);
     return result;
 }
-double operator_unbinary_sub(struct expression* e) {
+double operator_unary_sub(struct expression* e) {
     double result = 0;
 
     struct expression_holder* exp = e->holder;
@@ -69,9 +69,9 @@ char* operator_name(oper_function_t oper) {
         return "MUL";
     } else if (oper == operator_div) {
         return "DIV";
-    } else if (oper == operator_unbinary_add) {
+    } else if (oper == operator_unary_add) {
         return "U_ADD";
-    } else if (oper == operator_unbinary_sub) {
+    } else if (oper == operator_unary_sub) {
         return "U_SUB";
     } else {
         return "UN_OP";

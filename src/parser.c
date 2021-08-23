@@ -2,10 +2,10 @@
 
 int operator_precedence(enum operator_kind op) {
     switch (op) {
-        case unbinary_add:
+        case unary_add:
             return 0;
             break;
-        case unbinary_sub:
+        case unary_sub:
             return 0;
             break;
         case mult:
@@ -28,10 +28,10 @@ int operator_precedence(enum operator_kind op) {
 
 int binary(enum operator_kind op) {
     switch (op) {
-        case unbinary_add:
+        case unary_add:
             return 0;
             break;
-        case unbinary_sub:
+        case unary_sub:
             return 0;
             break;
         case mult:
@@ -92,10 +92,10 @@ struct expression parser(char* str, size_t size) {
                 if (i == 0) {
                     switch (str[i]) {
                         case '+':
-                            operators[operator_num].op = unbinary_add;
+                            operators[operator_num].op = unary_add;
                             break;
                         case '-':
-                            operators[operator_num].op = unbinary_sub;
+                            operators[operator_num].op = unary_sub;
                             break;
                         default:
                             printf("first, but mult or div\n");
@@ -152,11 +152,11 @@ struct expression parser(char* str, size_t size) {
         }
 
         switch (operators[0].op) {
-            case unbinary_add:
-                e.holder->operator_function = operator_unbinary_add;
+            case unary_add:
+                e.holder->operator_function = operator_unary_add;
                 break;
-            case unbinary_sub:
-                e.holder->operator_function = operator_unbinary_sub;
+            case unary_sub:
+                e.holder->operator_function = operator_unary_sub;
                 break;
             case mult:
                 e.holder->operator_function = operator_multiply;
