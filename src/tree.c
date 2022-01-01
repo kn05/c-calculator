@@ -1,7 +1,7 @@
 #include "tree.h"
 
-struct node* make_tree(struct expression e, struct node* p, int is_left) {
-    struct node* t = malloc(sizeof(struct node));
+struct node *make_tree(struct expression e, struct node *p, int is_left) {
+    struct node *t = malloc(sizeof(struct node));
     size_t textlength = 9;
     t->parent = p;
 
@@ -29,13 +29,14 @@ struct node* make_tree(struct expression e, struct node* p, int is_left) {
     return t;
 }
 
-int _print_tree(struct node* tree, int is_left, int offset, int depth, char s[20][255]) {
-    if (!tree) return 0;
+int _print_tree(struct node *tree, int is_left, int offset, int depth, char s[20][255]) {
+    if (!tree)
+        return 0;
 
-    int width = strlen(tree->text);  // 11
+    int width = strlen(tree->text); // 11
 
-    int left = _print_t(tree->left, 1, offset, depth + 1, s);
-    int right = _print_t(tree->right, 0, offset + left + width, depth + 1, s);
+    int left = _print_tree(tree->left, 1, offset, depth + 1, s);
+    int right = _print_tree(tree->right, 0, offset + left + width, depth + 1, s);
 
     for (int i = 0; i < width; i++) {
         s[depth][offset + left + i] = tree->text[i];
@@ -56,11 +57,13 @@ int _print_tree(struct node* tree, int is_left, int offset, int depth, char s[20
     return left + width + right;
 }
 
-void print_tree(struct node* tree) {
+void print_tree(struct node *tree) {
     char s[20][255];
-    for (int i = 0; i < 20; i++) sprintf(s[i], "%100s", " ");
+    for (int i = 0; i < 20; i++)
+        sprintf(s[i], "%100s", " ");
 
-    _print_t(tree, 0, 0, 0, s);
+    _print_tree(tree, 0, 0, 0, s);
 
-    for (int i = 0; i < 20; i++) printf("%s%%\n", s[i]);
+    for (int i = 0; i < 20; i++)
+        printf("%s%%\n", s[i]);
 }

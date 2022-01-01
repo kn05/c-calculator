@@ -4,22 +4,18 @@
 #include "tree.h"
 
 int main() {
-    char x[100] = {};
-    printf("expression input > ");
-    scanf("%s", &x);
-    size_t size = 0;
-
-    for (size_t i = 0; i < 100; ++i) {
-        if (x[i] == '\0') {
-            size = i;
+    while (1) {
+        char x[100] = {};
+        printf("expression input > ");
+        scanf("%s", &x);
+        if (x[0] == 'e') {
             break;
         }
+        struct expression r = parser(x, strlen(x));
+        print_tree(make_tree(r, 0, 0));
+        double rx = evaluate_expression(&r);
+        printf("result : %f\n", rx);
     }
-    struct expression r = parser(x, size);
-
-    print_t(make_tree(r, 0, 0));
-
-    double rx = evaluate_expression(&r);
-
-    printf("result : %f", rx);
+    printf("calculator is ended.\n");
+    return 0;
 }
