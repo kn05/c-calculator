@@ -34,14 +34,14 @@ int is_binary(enum operator_kind op) {
     }
 }
 
-int compare(const struct operator_array *ap, const struct operator_array *bp) {
-    const struct operator_array a = *ap;
-    const struct operator_array b = *bp;
+int compare(const void *ap, const void *bp) {
+    const struct operator_array *aptr = ap;
+    const struct operator_array *bptr = bp;
 
-    if (operator_precedence(a.op) != operator_precedence(b.op)) {
-        return operator_precedence(a.op) < operator_precedence(b.op);
+    if (operator_precedence(aptr->op) != operator_precedence(bptr->op)) {
+        return operator_precedence(aptr->op) < operator_precedence(bptr->op);
     } else {
-        return a.pos < b.pos;
+        return aptr->pos < bptr->pos;
     }
 }
 
@@ -113,21 +113,21 @@ struct expression parser(char *str, size_t size) {
         }
 
         if (operator_num == 0) {
-            //printf("it is in the braket: %.*s\n", size - 2, str + 1);
+            // printf("it is in the braket: %.*s\n", size - 2, str + 1);
             return parser(str + 1, size - 2);
         }
 
         qsort(operators, operator_num, sizeof(struct operator_array), compare);
 
         if (is_binary(operators[0].op)) {
-            //printf("\n>> parse to : %.*s | %.*s\n", operators[0].pos, str, size - operators[0].pos - 1, str + operators[0].pos + 1);
+            // printf("\n>> parse to : %.*s | %.*s\n", operators[0].pos, str, size - operators[0].pos - 1, str + operators[0].pos + 1);
             e.holder = malloc(sizeof(size_t) + 2 * sizeof(struct expression) + 1);
             e.holder->operand_count = 2;
             e.holder->expression_arrays[0] = parser(str, operators[0].pos);
             e.holder->expression_arrays[1] = parser(str + operators[0].pos + 1, size - operators[0].pos - 1);
 
         } else {
-            //printf("\n>> parse to : | %.*s \n", operators[0].pos, str + 1, size - 1);
+            // printf("\n>> parse to : | %.*s \n", operators[0].pos, str + 1, size - 1);
             e.holder = malloc(sizeof(size_t) + 1 * sizeof(struct expression) + 1);
             e.holder->operand_count = 1;
             e.holder->expression_arrays[0] = parser(str + 1, size - 1);

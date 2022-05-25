@@ -17,8 +17,8 @@ int operator_precedence(enum operator_kind op);
 
 int is_binary(enum operator_kind op);
 
-int compare(const struct operator_array* ap, const struct operator_array* bp);
+int compare(const void *ap, const void *bp);
 
-struct expression parser(char* str, size_t size);
+struct expression parser(char *str, size_t size);
 
 #endif
